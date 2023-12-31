@@ -22,28 +22,28 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [fullname, setFullName] = useState("");
   const navigation = useNavigation();
-  // const handleRegister = () => {
-  //   const user = {
-  //     fullname: fullname,
-  //     email: email,
-  //     password: password,
-  //   };
+  const handleRegister = () => {
+    const user = {
+      fullname: fullname,
+      email: email,
+      password: password,
+    };
 
-  //   axios
-  //     .post("http://172.16.1.216:8000/register", user)
-  //     .then((response) => {
-  //       console.log(response);
-  //       Alert.alert("Đăng ki thành công");
-  //       setFullName("");
-  //       setEmail("");
-  //       setPassword("");
-  //       navigation.replace("SignIn");
-  //     })
-  //     .catch((err) => {
-  //       Alert.alert("Đăng kí thất bại");
-  //       console.log("Registration failed", err);
-  //     });
-  // };
+    axios
+      .post("http://172.16.1.216:8000/api/auth/register", user)
+      .then((response) => {
+        console.log(response);
+        Alert.alert("Đăng ki thành công");
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        navigation.replace("SignIn");
+      })
+      .catch((err) => {
+        Alert.alert("Đăng kí thất bại");
+        console.log("Registration failed", err);
+      });
+  };
   return (
     <SafeAreaView
       style={{
@@ -172,6 +172,7 @@ const RegisterScreen = () => {
         <View style={{ marginTop: 50 }} />
 
         <Pressable
+          onPress={handleRegister}
           style={{
             width: 200,
             backgroundColor: "#B22222",

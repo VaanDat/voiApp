@@ -1,11 +1,20 @@
 const Drink = require("../models/drink");
 
 const drinkController = {
-  //get all drink
-  getAll: async (req, res) => {
+  //get all drink for admin
+  getAllForAdmin: async (req, res) => {
     try {
       const drinks = await Drink.find({ isDeleted: false });
-      res.status(200).json(drinks);
+      res.status(200).send({ data: drinks });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  //get all drink for user
+  getAllForUser: async (req, res) => {
+    try {
+      const drinks = await Drink.find({ isActive: true, isDeleted: false });
+      res.status(200).send({ data: drinks });
     } catch (error) {
       res.status(500).json(error);
     }

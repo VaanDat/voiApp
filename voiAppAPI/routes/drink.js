@@ -3,8 +3,10 @@ const middlewareController = require("../controller/middlewareController");
 
 const router = require("express").Router();
 
-//get all drink
-router.get("/", middlewareController.verifyToken, drinkController.getAll);
+//get all drink for admin
+router.get("/admin", middlewareController.verifyToken, drinkController.getAllForAdmin);
+//get all drink for user
+router.get("/user", middlewareController.verifyToken, drinkController.getAllForUser);
 //create a drink
 router.post("/",middlewareController.verifyToken, drinkController.create);
 //get a drink

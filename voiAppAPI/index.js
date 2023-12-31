@@ -11,6 +11,7 @@ dotenv.config();
 
 const authRoute = require("./routes/auth");
 const drinkRoute = require("./routes/drink")
+const postRoute = require("./routes/post")
 
 
 const expoDevServerUrl = "http://172.16.1.216:8081";
@@ -46,3 +47,4 @@ app.listen(port, () => {
 //route
 app.use("/api/auth", authRoute);
 app.use("/api/drink", drinkRoute)
+app.use("/api/post",postRoute)
