@@ -43,16 +43,17 @@ const postController = {
   //get all post for admin
   getAllForAdmin: async (req, res) => {
     try {
-      const posts = Post.find({ isDeleted: false });
+      const posts = await Post.find({ isDeleted: false });
       res.status(200).send({ data: posts });
     } catch (error) {
-      res.status.json(error);
+      console.log(error);
+      res.status(400).send({ messegae: "Get failed" });
     }
   },
   //get all post for user
   getAllForUser: async (req, res) => {
     try {
-      const posts = Post.find({ isActive: true, isDeleted: false });
+      const posts = await Post.find({ isActive: true, isDeleted: false });
       res.status(200).send({ data: posts });
     } catch (error) {
       res.status.json(error);
@@ -100,7 +101,8 @@ const postController = {
       header: header,
       _id: { $ne: result._id },
     });
-    if (existedHeader != null || existedHeader?.isDeleted != true) {
+    console.log(existedHeader);
+    if (existedHeader != null || existedHeader?.isDeleted == false) {
       res.status(400).json("Header already used");
       return;
     }
@@ -110,9 +112,27 @@ const postController = {
         req.body,
         { new: true }
       );
-      res.status(200).send({data: updatedPost});
+      res.status(200).send({ data: updatedPost });
     } catch (error) {
       res.status(400).json(error);
+    }
+  },
+  //delete a post
+  delete: async (req, res) => {
+    try {
+      const result = await Post.findOne({ _id: req.params.id });
+      if (result && !result.isDeleted) {
+        await Post.findOneAndUpdate(
+          { _id: req.params.id },
+          { isDeleted: true },
+          { new: true }
+        );
+        res.status(200).json("Delete success");
+      } else {
+        res.status(404).json("Post not found or already deleted");
+      }
+    } catch (error) {
+      res.status(500).json(error);
     }
   },
 };
