@@ -15,11 +15,14 @@ const authController = {
         console.log("Email already registered:", email);
         return res.status(400).json({ message: "Email already registered" });
       }
-
+      let avatar = "";
+      if (req.file) {
+        avatar = req.file.path;
+      }
       const salt = await bcrypt.genSalt(10);
       const hased = await bcrypt.hash(password, salt);
 
-      const newUser = new User({ fullname, email, password: hased });
+      const newUser = new User({ fullname, email, password: hased, avatar });
       const user = await newUser.save();
       res.status(200).json(user);
     } catch (error) {

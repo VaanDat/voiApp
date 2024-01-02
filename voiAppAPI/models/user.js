@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  avatar: {
+    type: String,
+  },
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
