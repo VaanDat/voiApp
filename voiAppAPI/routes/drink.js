@@ -1,6 +1,6 @@
 const drinkController = require("../controller/drinkController");
 const middlewareController = require("../controller/middlewareController");
-
+const upload = require("../controller/uploadController");
 const router = require("express").Router();
 
 //get all drink for admin

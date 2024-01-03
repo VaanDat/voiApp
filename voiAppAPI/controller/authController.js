@@ -63,6 +63,7 @@ const authController = {
             fullname: user.fullname,
             email: user.email,
             token: accessToken,
+            isAdmin: user.isAdmin,
           },
         });
       }

@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  isAdmin: {
+    type: Boolean,
+    default: true,
+  },
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
